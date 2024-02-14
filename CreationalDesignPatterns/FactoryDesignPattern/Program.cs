@@ -7,41 +7,44 @@ namespace FactoryDesignPattern
     {
         static void Main(string[] args)
         {
-            // Initialize a list to hold the sorted arrays
-            List<List<int>> listOfLists = new List<List<int>>();
-
-            // Create a random number generator
-            Random rand = new Random();
-
-            // Generate 5 sorted arrays
-            for (int i = 0; i < 5; i++)
-            {
-                // Generate a random length between 5 and 10
-                int length = rand.Next(5, 11);
-
-                // Generate a sorted array of random integers
-                List<int> sortedArray = new List<int>();
-                for (int j = 0; j < length; j++)
-                {
-                    sortedArray.Add(rand.Next(100));
-                }
-                sortedArray.Sort();
-
-                // Append the sorted array to the list of lists
-                listOfLists.Add(sortedArray);
+            Console.WriteLine("FactoryDesignPattern example....\n");
+           
+            ICreditCard card = CreditCardFactory.GetCreditCard(CreditCardType.Titanium);
+            if(card != null){
+                Console.WriteLine($"CardType: {card.GetCardType()} \nCreditLimit: {card.GetCreditLimit()} \nAnnualCharges: {card.GetAnnualCharges()}");
             }
-            
-            Console.WriteLine($"Hello from FactoryDesignPattern..!! {Environment.NewLine}");
-
-            // Print the list of lists
-            foreach (var array in listOfLists)
-            {
-                foreach (var item in array)
-                {
-                    Console.Write(item + " ");
-                }
-                Console.WriteLine();
+            else{
+                Console.WriteLine("Invalid card type...!!");
             }
         }
     }
 }
+
+ /*
+            #################
+            Details Of Factory Pattern
+            ##################
+
+             A factory is an object used for creating other objects.
+             In technical terms, we can say that a factory is a class with a method.
+             That method will create and return different objects based on the received 
+             input parameter.
+
+             In the Factory Design pattern, we create an object without exposing the Object
+             Creation and Initialization logic to the client, and the client will refer to
+             the newly created object using a common interface.
+            
+            #############
+            When to use
+            ############
+            1) Complex Object Creation: When the creation logic of objects is complex and should 
+                not be part of the client code. Factory pattern abstracts the instantiation process
+                and hides the complexity from the client.
+            2) Decoupling: It’s useful when there needs to be a decoupling between the implementation
+                 of a class and its users. The Factory pattern allows for this by letting a class defer
+                 instantiation to subclasses or another class.
+            3) Conditional Object Creation: If the creation of an object depends on certain conditions or 
+                configurations, the Factory pattern can encapsulate these conditions and ensure the creation
+                of the appropriate object.
+
+*/
