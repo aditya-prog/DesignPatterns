@@ -7,40 +7,34 @@ namespace BuilderDesignPattern
     {
         static void Main(string[] args)
         {
-            // Initialize a list to hold the sorted arrays
-            List<List<int>> listOfLists = new List<List<int>>();
+            // Create Desktop system
+            var desktopConfigs = ConfigHelper.GetDesktopConfig();
+            ISystemBuilder desktopBuilder = new DesktopBuilder();
+            Director.BuildConfigurationOfSystem(desktopBuilder,desktopConfigs);
 
-            // Create a random number generator
-            Random rand = new Random();
+            var desktopSystem = desktopBuilder.GetSystem();
+            Console.WriteLine("Desktop System: ");
+            Console.WriteLine(desktopSystem);
 
-            // Generate 5 sorted arrays
-            for (int i = 0; i < 5; i++)
-            {
-                // Generate a random length between 5 and 10
-                int length = rand.Next(5, 11);
+            // Create Laptop system
+            var laptopConfigs = ConfigHelper.GetLaptopConfigs();
+            ISystemBuilder laptopBuilder = new LaptopBuilder();
+            Director.BuildConfigurationOfSystem(laptopBuilder,laptopConfigs);
 
-                // Generate a sorted array of random integers
-                List<int> sortedArray = new List<int>();
-                for (int j = 0; j < length; j++)
-                {
-                    sortedArray.Add(rand.Next(100));
-                }
-                sortedArray.Sort();
-
-                // Append the sorted array to the list of lists
-                listOfLists.Add(sortedArray);
-            }
-
-            Console.WriteLine($"Hello from BuilderDesignPattern..!! {Environment.NewLine}");
-            // Print the list of lists
-            foreach (var array in listOfLists)
-            {
-                foreach (var item in array)
-                {
-                    Console.Write(item + " ");
-                }
-                Console.WriteLine();
-            }
+            var laptopSystem = laptopBuilder.GetSystem();
+            Console.WriteLine("Laptop System: ");
+            Console.WriteLine(laptopSystem);
         }
     }
 }
+
+/*
+    The Builder pattern is a design pattern used to construct complex objects step by step.
+    It allows you to produce different types and representations of an object using the same 
+    construction process. 
+    This pattern is particularly useful when you need to create a complex object having large number of 
+    required and optional properties/configurations.
+
+    This pattern helps to separate the construction of a complex object from its representation, 
+    allowing the same construction process to create different representations.
+*/
